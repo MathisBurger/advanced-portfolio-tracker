@@ -31,3 +31,10 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> = Composit
   BottomTabScreenProps<RootTabParamList, Screen>,
   NativeStackScreenProps<RootStackParamList>
 >;
+
+export type ChartInterval = "day" | "week" | "month" | "year" | "max";
+
+export type ChartData = {
+  label: string;
+  value: number;
+}

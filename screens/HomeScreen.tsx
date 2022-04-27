@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {ScrollView, SectionList, StyleSheet} from 'react-native';
 
 import { Text, View } from '../components/Themed';
 import {ChartData, RootTabScreenProps} from '../types';
@@ -6,7 +6,7 @@ import PortfolioChart from "../components/PortfolioChart";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import {Chip} from "react-native-paper";
-import * as cluster from "cluster";
+import PositionsList, {Position} from "../components/PositionsList";
 
 export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 
@@ -30,15 +30,45 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
             value: 160
         },
     ];
+    const positions: Position[] = [
+        {
+            buyValue: 80,
+            currentValue: 120,
+            sumValue: 2000,
+            name: 'Coca Cola',
+            logoUrl: 'https://www.brandslex.de/img/logos/xl/c/logo-coca-cola-04.png'
+        },
+        {
+            buyValue: 35,
+            currentValue: 20,
+            sumValue: 4500,
+            name: 'Tencent',
+            logoUrl: 'https://brandlogos.net/wp-content/uploads/2021/10/tencent-logo.png'
+        },
+        {
+            buyValue: 60,
+            currentValue: 80,
+            sumValue: 10000,
+            name: 'Mercedes Benz',
+            logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Mercedes-Benz_Star_2022.svg/800px-Mercedes-Benz_Star_2022.svg.png'
+        },
+        {
+            buyValue: 30,
+            currentValue: 22,
+            sumValue: 100,
+            name: 'Cisco Systems',
+            logoUrl: 'https://www.logolynx.com/images/logolynx/65/652a96fe3cb809736d423a75ebb8de74.jpeg'
+        }
+    ]
 
     const getChangePercentage = (data: ChartData[]): string => {
         if (data.length > 1) {
             const increase =  data[data.length-1].value - data[0].value;
             const change =  increase / data[data.length-1].value * 100;
             if (change >= 0) {
-                return '+' + change + '%';
+                return '+' + change.toFixed(2) + '%';
             }
-            return change + '%';
+            return change.toFixed(2) + '%';
         }
         return '';
     }
@@ -46,7 +76,7 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
     const getChangeColor = () => getChangePercentage(portfolioChartData).startsWith('+') ? '#138108' : 'red';
 
   return (
-      <View>
+      <ScrollView style={{margin: 10}}>
             <View style={[styles.portfolioValue, {backgroundColor: Colors[colorTheme].portfolioValueBackground}]}>
                 <Text style={styles.portfolioValueText}>{portfolioChartData[portfolioChartData.length-1].value}€</Text>
                 <Chip
@@ -58,8 +88,13 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
                     <Text style={{color: 'white'}}>{getChangePercentage(portfolioChartData)}</Text>
                 </Chip>
             </View>
-            <PortfolioChart data={portfolioChartData} />
-      </View>
+            <View style={{marginTop: 20}}>
+                <PortfolioChart data={portfolioChartData} />
+            </View>
+          <View style={{marginTop: 20}}>
+              <PositionsList positions={positions} />
+          </View>
+      </ScrollView>
   );
 }
 

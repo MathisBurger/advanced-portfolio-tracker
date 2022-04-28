@@ -1,4 +1,4 @@
-import {ScrollView, SectionList, StyleSheet} from 'react-native';
+import {ScrollView, StyleSheet} from 'react-native';
 
 import { Text, View } from '../components/Themed';
 import {ChartData, RootTabScreenProps} from '../types';
@@ -79,6 +79,7 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
       <ScrollView style={{margin: 10}}>
             <View style={[styles.portfolioValue, {backgroundColor: Colors[colorTheme].portfolioValueBackground}]}>
                 <Text style={styles.portfolioValueText}>{portfolioChartData[portfolioChartData.length-1].value}€</Text>
+                {/** @ts-ignore */}
                 <Chip
                     style={[
                         styles.portfolioValueChip,

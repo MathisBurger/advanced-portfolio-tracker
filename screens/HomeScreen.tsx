@@ -1,21 +1,18 @@
 import {ScrollView, StyleSheet} from 'react-native';
 
-import { Text, View } from '../components/Themed';
+import {Text, View} from '../components/Themed';
 import {ChartData, RootTabScreenProps} from '../types';
 import PortfolioChart from "../components/PortfolioChart";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import {Chip} from "react-native-paper";
 import PositionsList, {Position} from "../components/PositionsList";
-import {useEffect} from "react";
+import useStockAPI from "../hooks/useStockAPI";
 
 export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 
     const colorTheme = useColorScheme();
-
-    useEffect(() => {
-        //new FrankfurtAPI().getCurrentInfo('IE00B4L5Y983');
-    }, []);
+    const api = useStockAPI();
 
     const portfolioChartData: ChartData[] = [
         {

@@ -7,12 +7,12 @@ import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import {Chip} from "react-native-paper";
 import PositionsList, {Position} from "../components/PositionsList";
-import useStockAPI from "../hooks/useStockAPI";
+import useGetPortfolio from "../hooks/useGetPortfolio";
 
 export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 
     const colorTheme = useColorScheme();
-    const api = useStockAPI();
+    const {portfolio} = useGetPortfolio("intraday");
 
     const portfolioChartData: ChartData[] = [
         {

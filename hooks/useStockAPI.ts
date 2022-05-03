@@ -1,10 +1,9 @@
-import AlphaVantage from "alphavantage-wrapper-ts";
+import {StockApiInterface} from "../data/StockApiInterface";
+import FrankfurtAPI from "../data/FrankfurtAPI";
 
+const useStockAPI = (): StockApiInterface => {
 
-
-const useStockAPI = () => {
-
-    return new AlphaVantage({apikey: "1"});
+    return new FrankfurtAPI();
 }
 
 export default useStockAPI;
